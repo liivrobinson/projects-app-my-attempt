@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import View from './View';
 import Project from './Project';
+import AddProjectForm from './AddProjectForm';
+import UpdateProjectForm from './UpdateProjectForm';
 import logo from './logo.svg';
 import './App.css';
 
@@ -38,65 +40,29 @@ class App extends Component {
           </div>
           <div className="main">
             <h3>Projects</h3>
-              <Project></Project>
+            {
+              this.state.projects.map((project)=>{
+                var projectProps = {
+                  ...project,
+                  setActiveView: this.setActiveView,
+                }
+                return (<Project {...projectProps}/>)
+              })
+            }
           </div>
         </View>
         <View viewName="add-project" activeView={this.state.activeView} className="color2">
           <div className="header"><i onClick={() => this.setActiveView('projects')} className="fas fa-times"></i></div>
           <div className="main">
             <h3>Add a project</h3>
-            <form>
-              <div className="form-group">
-                <label for="name-input">Name</label>
-                <input type="text" className="form-control" name="name-input" id="name-input" placeholder="Enter project name"/>
-              </div>
-              <div className="form-group">
-                <label for="name-input">Description</label>
-                <input type="text" className="form-control" name="description-input" id="description-input" placeholder="Enter project description"/>
-              </div>
-              <div className="form-group">
-                <label for="name-input">Photo</label>
-                <input type="text" className="form-control" name="photo-input" id="photo-input" value="project.jpg"/>
-              </div>
-              <div className="form-group">
-                <label for="type-input">Type</label>
-                <select className="form-control" name="type-input" id="type-input">
-                  <option value="1">Painting</option>
-                  <option value="2">Sculpture</option>
-                  <option value="3">Digital</option>
-                </select>
-              </div>
-              <button type="submit" className="btn btn-primary">Add</button>
-            </form>
+            <AddProjectForm/>
           </div>
         </View>
         <View viewName="update-project" activeView={this.state.activeView} className="color3">
           <div className="header"><i onClick={() => this.setActiveView('projects')} className="fas fa-times"></i></div>
           <div className="main">
             <h2>Update Projects</h2>
-            <form>
-              <div className="form-group">
-                <label for="name-input">Name</label>
-                <input type="text" className="form-control" name="name-input" id="name-input" defaultValue="Morning in Waiheke"/>
-              </div>
-              <div className="form-group">
-                <label for="name-input">Description</label>
-                <input type="text" className="form-control" name="description-input" id="description-input" defaultValue="Painting by an local artist"/>
-              </div>
-              <div className="form-group">
-                <label for="name-input">Photo</label>
-                <input type="text" className="form-control" name="photo-input" id="photo-input" value="project.jpg"/>
-              </div>
-              <div className="form-group">
-                <label for="type-input">Type</label>
-                <select className="form-control" name="type-input" id="type-input">
-                  <option value="1">Painting</option>
-                  <option value="2">Sculpture</option>
-                  <option value="3">Digital</option>
-                </select>
-              </div>
-              <button type="submit" className="btn btn-primary">Add</button>
-            </form>
+            <UpdateProjectForm/>
           </div>
         </View>
         <View viewName="nav" activeView={this.state.activeView} className="color5">
